@@ -15,6 +15,7 @@ public class NotificacionesHelper extends SQLiteOpenHelper {
 	public NotificacionesHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
+
 	@Override
     	public void onCreate(SQLiteDatabase db) {
         	db.execSQL("CREATE TABLE " + NotificacionesEntry.TABLE_NAME + " ("
