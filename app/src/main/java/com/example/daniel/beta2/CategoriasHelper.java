@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import static com.example.daniel.beta2.CategoriasTabla.CategoriasEntry;
 
-public class CategoriasDbHelper extends SQLiteOpenHelper {
+public class CategoriasHelper extends SQLiteOpenHelper {
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "Categorias.db";
 	
-	public CategoriasDbHelper(Context context){
+	public CategoriasHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	@Override
