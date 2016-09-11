@@ -18,8 +18,8 @@ public class NotificacionesTabla{
 			*/
 		public static final String ID = "id";
 		public static final String MENSAJE = "mensaje";
-		public static final int FECHA = "fecha";
-		public static final int HORA = "hora";
+		public static final String FECHA = "fecha";
+		public static final String HORA = "hora";
 		public static final String SONIDO = "sonido";
     }
 }

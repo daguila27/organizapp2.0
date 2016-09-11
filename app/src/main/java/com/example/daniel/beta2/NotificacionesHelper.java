@@ -5,34 +5,37 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.example.lawyersapp.daniel.NotificacionesTabla.NotificacionesTabla;
+import static com.example.daniel.beta2.NotificacionesTabla.NotificacionesEntry;
 
-public class NotificacionesDbHelper extends SQLiteOpenHelper {
+
+public class NotificacionesHelper extends SQLiteOpenHelper {
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "Notificaciones.db";
 	
-	public NotificacionesDbHelper(Context context){
+	public NotificacionesHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	@Override
     	public void onCreate(SQLiteDatabase db) {
-        	db.execSQL("CREATE TABLE " + NotificacionesTabla.TABLE_NAME + " ("
-                + NotificacionesTabla._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + NotificacionesTabla.ID + " TEXT NOT NULL,"
-                + NotificacionesTabla.PRIORIDAD + " TEXT NOT NULL,"
-                + NotificacionesTabla.NOMBRE + " TEXT NOT NULL,"
-                + "UNIQUE (" + NotificacionesTabla.ID + "))");
+        	db.execSQL("CREATE TABLE " + NotificacionesEntry.TABLE_NAME + " ("
+                + NotificacionesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + NotificacionesEntry.ID + " TEXT NOT NULL,"
+                + NotificacionesEntry.MENSAJE + " TEXT NOT NULL,"
+                + NotificacionesEntry.FECHA + " TEXT NOT NULL,"
+                    + NotificacionesEntry.HORA + " TEXT NOT NULL,"
+                    + NotificacionesEntry.SONIDO + " TEXT NOT NULL,"
+                + "UNIQUE (" + NotificacionesEntry.ID + "))");
 	// Insertar datos ficticios para prueba inicial
         mockData(db);
 	}
 	private void mockData(SQLiteDatabase sqLiteDatabase) {
-        mockLawyer(sqLiteDatabase, new Lawyer("5", "Certamen"));
+        mockNotificacion(sqLiteDatabase, new Notificaciones("mensaje", "fecha","hora","sonido"));
     }
-	public long mockLawyer(SQLiteDatabase db, Lawyer lawyer) {
+	public long mockNotificacion(SQLiteDatabase db, Notificaciones notificacion) {
         return db.insert(
-                CategoriaTabla.TABLE_NAME,
+                NotificacionesEntry.TABLE_NAME,
                 null,
-                lawyer.toContentValues());
+                notificacion.toContentValues());
     }
 
     @Override
@@ -40,49 +43,49 @@ public class NotificacionesDbHelper extends SQLiteOpenHelper {
         // No hay operaciones
     }
 
-    public long saveLawyer(Lawyer lawyer) {
+    public long saveNotificacion(Notificaciones notificacion) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         return sqLiteDatabase.insert(
-                CategoriaTabla.TABLE_NAME,
+                NotificacionesEntry.TABLE_NAME,
                 null,
-                lawyer.toContentValues());
+                notificacion.toContentValues());
 
     }
 
-    public Cursor getAllLawyers() {
+    public Cursor getAllNotificaciones() {
         return getReadableDatabase()
                 .query(
-                        CategoriaTabla.TABLE_NAME,
+                        NotificacionesEntry.TABLE_NAME,
                         null,
-                        null);
+                        null,null,null,null,null);
     }
 
-    public Cursor getLawyerById(String lawyerId) {
+    public Cursor getNotificacionById(String notificacionId) {
         Cursor c = getReadableDatabase().query(
-                CategoriaTabla.TABLE_NAME,
+                NotificacionesEntry.TABLE_NAME,
                 null,
-                CategoriaTabla.ID + " LIKE ?",
-                new String[]{lawyerId},
+                NotificacionesEntry.ID + " LIKE ?",
+                new String[]{notificacionId},
                 null,
                 null,
                 null);
         return c;
     }
 
-    public int deleteLawyer(String lawyerId) {
+    public int deleteNotificacion(String notificacionId) {
         return getWritableDatabase().delete(
-                LawyerEntry.TABLE_NAME,
-                LawyerEntry.ID + " LIKE ?",
-                new String[]{lawyerId});
+                NotificacionesEntry.TABLE_NAME,
+                NotificacionesEntry.ID + " LIKE ?",
+                new String[]{notificacionId});
     }
 
-    public int updateLawyer(Lawyer lawyer, String lawyerId) {
+    public int updateNotificacion(Notificaciones notificacion, String notificacionId) {
         return getWritableDatabase().update(
-                LawyerEntry.TABLE_NAME,
-                lawyer.toContentValues(),
-                LawyerEntry.ID + " LIKE ?",
-                new String[]{lawyerId}
+                NotificacionesEntry.TABLE_NAME,
+                notificacion.toContentValues(),
+                NotificacionesEntry.ID + " LIKE ?",
+                new String[]{notificacionId}
         );
     }
 }
