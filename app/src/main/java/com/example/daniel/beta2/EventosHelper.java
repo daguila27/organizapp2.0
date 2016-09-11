@@ -5,34 +5,34 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.example.lawyersapp.daniel.EventosTabla.EventosTabla;
+import static com.example.daniel.beta2.EventosTabla.EventosEntry;
 
-public class EventosDbHelper extends SQLiteOpenHelper {
+public class EventosHelper extends SQLiteOpenHelper {
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "Eventos.db";
 	
-	public EventosDbHelper(Context context){
+	public EventosHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	@Override
     	public void onCreate(SQLiteDatabase db) {
-        	db.execSQL("CREATE TABLE " + EventosTabla.TABLE_NAME + " ("
-                + EventosTabla._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + EventosTabla.ID + " TEXT NOT NULL,"
-                + EventosTabla.FECHA + " INTEGER NOT NULL,"
-                + EventosTabla.ID_CATEGORIA + " TEXT NOT NULL,"
-                + "UNIQUE (" + EventosTabla.ID + "))");
+        	db.execSQL("CREATE TABLE " + EventosEntry.TABLE_NAME + " ("
+                + EventosEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + EventosEntry.ID + " TEXT NOT NULL,"
+                + EventosEntry.FECHA + " INTEGER NOT NULL,"
+                + EventosEntry.ID_CATEGORIA + " TEXT NOT NULL,"
+                + "UNIQUE (" + EventosEntry.ID + "))");
 	// Insertar datos ficticios para prueba inicial
         mockData(db);
 	}
 	private void mockData(SQLiteDatabase sqLiteDatabase) {
-        mockLawyer(sqLiteDatabase, new Lawyer("5", "Certamen"));
+        mockLawyer(sqLiteDatabase, new Eventos("5", "Certamen"));
     }
-	public long mockLawyer(SQLiteDatabase db, Lawyer lawyer) {
+	public long mockLawyer(SQLiteDatabase db, Eventos evento) {
         return db.insert(
-                CategoriaTabla.TABLE_NAME,
+                EventosEntry.TABLE_NAME,
                 null,
-                lawyer.toContentValues());
+                evento.toContentValues());
     }
 
     @Override
@@ -40,49 +40,48 @@ public class EventosDbHelper extends SQLiteOpenHelper {
         // No hay operaciones
     }
 
-    public long saveLawyer(Lawyer lawyer) {
+    public long saveEvento(Eventos evento) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         return sqLiteDatabase.insert(
-                CategoriaTabla.TABLE_NAME,
+                EventosEntry.TABLE_NAME,
                 null,
-                lawyer.toContentValues());
+                evento.toContentValues());
 
     }
 
-    public Cursor getAllLawyers() {
+    public Cursor getAllEventos() {
         return getReadableDatabase()
-                .query(
-                        CategoriaTabla.TABLE_NAME,
+                .query(EventosEntry.TABLE_NAME,
                         null,
-                        null);
+                        null,null,null,null,null);
     }
 
-    public Cursor getLawyerById(String lawyerId) {
+    public Cursor getEventoById(String eventoId) {
         Cursor c = getReadableDatabase().query(
-                CategoriaTabla.TABLE_NAME,
+                EventosEntry.TABLE_NAME,
                 null,
-                CategoriaTabla.ID + " LIKE ?",
-                new String[]{lawyerId},
+                EventosEntry.ID + " LIKE ?",
+                new String[]{eventoId},
                 null,
                 null,
                 null);
         return c;
     }
 
-    public int deleteLawyer(String lawyerId) {
+    public int deleteEvento(String eventoId) {
         return getWritableDatabase().delete(
-                LawyerEntry.TABLE_NAME,
-                LawyerEntry.ID + " LIKE ?",
-                new String[]{lawyerId});
+                EventosEntry.TABLE_NAME,
+                EventosEntry.ID + " LIKE ?",
+                new String[]{eventoId});
     }
 
-    public int updateLawyer(Lawyer lawyer, String lawyerId) {
+    public int updateEvento(Eventos evento, String eventoId) {
         return getWritableDatabase().update(
-                LawyerEntry.TABLE_NAME,
-                lawyer.toContentValues(),
-                LawyerEntry.ID + " LIKE ?",
-                new String[]{lawyerId}
+                EventosEntry.TABLE_NAME,
+                evento.toContentValues(),
+                EventosEntry.ID + " LIKE ?",
+                new String[]{eventoId}
         );
     }
 }
