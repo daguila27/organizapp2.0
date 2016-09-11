@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.example.lawyersapp.daniel.CategoriasTabla.CategoriasTabla;
+import static com.example.daniel.beta2.CategoriasTabla.CategoriasEntry;
 
 public class CategoriasDbHelper extends SQLiteOpenHelper {
 	public static final int DATABASE_VERSION = 1;
@@ -16,23 +16,22 @@ public class CategoriasDbHelper extends SQLiteOpenHelper {
 	}
 	@Override
     	public void onCreate(SQLiteDatabase db) {
-        	db.execSQL("CREATE TABLE " + CategoriasTabla.TABLE_NAME + " ("
-                + CategoriasTabla._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + CategoriasTabla.ID + " TEXT NOT NULL,"
-                + CategoriasTabla.PRIORIDAD + " TEXT NOT NULL,"
-                + CategoriasTabla.NOMBRE + " TEXT NOT NULL,"
-                + "UNIQUE (" + CategoriasTabla.ID + "))");
-	// Insertar datos ficticios para prueba inicial
-        mockData(db);
+        	db.execSQL("CREATE TABLE " + CategoriasEntry.TABLE_NAME + " ("
+                + CategoriasEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + CategoriasEntry.ID + " TEXT NOT NULL,"
+                + CategoriasEntry.PRIORIDAD + " TEXT NOT NULL,"
+                + CategoriasEntry.NOMBRE + " TEXT NOT NULL,"
+                + "UNIQUE (" + CategoriasEntry.ID + "))");
+		// Insertar datos ficticios para prueba inicial
+        	mockData(db);
 	}
+
+
 	private void mockData(SQLiteDatabase sqLiteDatabase) {
-        mockLawyer(sqLiteDatabase, new Lawyer("5", "Certamen"));
+        mockCategoria(sqLiteDatabase, new Categorias( "3" , "Certamen"));
     }
-	public long mockLawyer(SQLiteDatabase db, Lawyer lawyer) {
-        return db.insert(
-                CategoriaTabla.TABLE_NAME,
-                null,
-                lawyer.toContentValues());
+	public long mockCategoria(SQLiteDatabase db, Categorias categoria) {
+        return db.insert(CategoriasEntry.TABLE_NAME,null,categoria.toContentValues());
     }
 
     @Override
@@ -40,49 +39,49 @@ public class CategoriasDbHelper extends SQLiteOpenHelper {
         // No hay operaciones
     }
 
-    public long saveLawyer(Lawyer lawyer) {
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+    public long saveCategoria(Categorias categoria) {
+        SQLiteDatabase db = getWritableDatabase();
 
-        return sqLiteDatabase.insert(
-                CategoriaTabla.TABLE_NAME,
+        return db.insert(/*Inserta una fila en la base de datos*/
+                CategoriasEntry.TABLE_NAME,
                 null,
-                lawyer.toContentValues());
+                categoria.toContentValues());
 
     }
 
-    public Cursor getAllLawyers() {
-        return getReadableDatabase()
-                .query(
-                        CategoriaTabla.TABLE_NAME,
-                        null,
-                        null);
+    public Cursor getAllCategorias() {/*GETREADABLEDATABASE: CREA Y/O ABRE UN BASE DE DATOS(PARA LECTURA), RETORNA VARIABLE DEL TIPO SQLITEDATABASE*/
+        return getReadableDatabase().query(CategoriasEntry.TABLE_NAME,null,null);/*QUERY RETORNA CURSOR*/
     }
 
-    public Cursor getLawyerById(String lawyerId) {
+    public Cursor getCategoriaById(String categoriaId) {
         Cursor c = getReadableDatabase().query(
-                CategoriaTabla.TABLE_NAME,
+                CategoriasEntry.TABLE_NAME,
                 null,
-                CategoriaTabla.ID + " LIKE ?",
-                new String[]{lawyerId},
+                CategoriasEntry.ID + " LIKE ?",
+                new String[]{categoriaId},
                 null,
                 null,
                 null);
         return c;
     }
 
-    public int deleteLawyer(String lawyerId) {
-        return getWritableDatabase().delete(
-                LawyerEntry.TABLE_NAME,
-                LawyerEntry.ID + " LIKE ?",
-                new String[]{lawyerId});
+    public int deleteCategoria(String categoriaId) {
+        return getWritableDatabase().delete(/*GETWRITABLEDATABASE: ABRE BD PARA LECTURA Y ESCRITURA*/
+                CategoriasEntry.TABLE_NAME,
+                CategoriasEntry.ID + " LIKE ?",/*COMANDO WHERE, SI SE PASA NULL BORRA TODAS LA FILAS*/
+                new String[]{categoriaId});
     }
 
-    public int updateLawyer(Lawyer lawyer, String lawyerId) {
-        return getWritableDatabase().update(
-                LawyerEntry.TABLE_NAME,
-                lawyer.toContentValues(),
-                LawyerEntry.ID + " LIKE ?",
-                new String[]{lawyerId}
+    public int updateCategoria(Categorias categoria, String categoriaId) {
+	/*int update (String table, 
+                ContentValues values, 
+                String whereClause, 
+                String[] whereArgs)*/        
+	return getWritableDatabase().update(
+                CategoriasEntry.TABLE_NAME,
+                categoria.toContentValues(),
+                CategoriasEntry.ID + " LIKE ?",
+                new String[]{categoriaId}
         );
     }
 }
