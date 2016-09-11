@@ -50,7 +50,7 @@ public class CategoriasDbHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getAllCategorias() {/*GETREADABLEDATABASE: CREA Y/O ABRE UN BASE DE DATOS(PARA LECTURA), RETORNA VARIABLE DEL TIPO SQLITEDATABASE*/
-        return getReadableDatabase().query(CategoriasEntry.TABLE_NAME,null,null);/*QUERY RETORNA CURSOR*/
+        return getReadableDatabase().query(CategoriasEntry.TABLE_NAME,null,null,null,null,null,null);/*QUERY RETORNA CURSOR*/
     }
 
     public Cursor getCategoriaById(String categoriaId) {
