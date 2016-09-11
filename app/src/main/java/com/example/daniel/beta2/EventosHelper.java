@@ -19,6 +19,7 @@ public class EventosHelper extends SQLiteOpenHelper {
         	db.execSQL("CREATE TABLE " + EventosEntry.TABLE_NAME + " ("
                 + EventosEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + EventosEntry.ID + " TEXT NOT NULL,"
+                + EventosEntry.NOMBRE + "TEXT NOT NULL,"
                 + EventosEntry.FECHA + " INTEGER NOT NULL,"
                 + EventosEntry.ID_CATEGORIA + " TEXT NOT NULL,"
                 + "UNIQUE (" + EventosEntry.ID + "))");
@@ -26,7 +27,7 @@ public class EventosHelper extends SQLiteOpenHelper {
         mockData(db);
 	}
 	private void mockData(SQLiteDatabase sqLiteDatabase) {
-        mockLawyer(sqLiteDatabase, new Eventos("5", "Certamen"));
+        mockLawyer(sqLiteDatabase, new Eventos("Certamen2", "02102016","id_categoria"));
     }
 	public long mockLawyer(SQLiteDatabase db, Eventos evento) {
         return db.insert(

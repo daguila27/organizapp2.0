@@ -14,6 +14,7 @@ public class EventosTabla{
 		private int fecha;
 		private String id_categoria;*/
 		public static final String ID = "id";
+		public static final String NOMBRE = "nombre";
 		public static final String FECHA = "fecha";
 		public static final String ID_CATEGORIA = "id_categoria";
     }
