@@ -15,7 +15,9 @@ public class CategoriasHelper extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	@Override
-    	public void onCreate(SQLiteDatabase db) {
+
+    
+    public void onCreate(SQLiteDatabase db) {
         	db.execSQL("CREATE TABLE " + CategoriasEntry.TABLE_NAME + " ("
                 + CategoriasEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + CategoriasEntry.ID + " TEXT NOT NULL,"
@@ -29,6 +31,9 @@ public class CategoriasHelper extends SQLiteOpenHelper {
 
 	private void mockData(SQLiteDatabase sqLiteDatabase) {
         mockCategoria(sqLiteDatabase, new Categorias( "3" , "Certamen"));
+        mockCategoria(sqLiteDatabase, new Categorias( "1" , "Aniversario"));
+        mockCategoria(sqLiteDatabase, new Categorias( "1" , "Cumpleaños"));
+        mockCategoria(sqLiteDatabase, new Categorias( "1" , "Reunion"));
     }
 	public long mockCategoria(SQLiteDatabase db, Categorias categoria) {
         return db.insert(CategoriasEntry.TABLE_NAME,null,categoria.toContentValues());
@@ -39,7 +44,7 @@ public class CategoriasHelper extends SQLiteOpenHelper {
         // No hay operaciones
     }
 
-    public long saveCategoria(Categorias categoria) {
+    public long saveCategoria(Categorias categoria) {//Guarda una clase en la base de datos...
         SQLiteDatabase db = getWritableDatabase();
 
         return db.insert(/*Inserta una fila en la base de datos*/
@@ -53,7 +58,7 @@ public class CategoriasHelper extends SQLiteOpenHelper {
         return getReadableDatabase().query(CategoriasEntry.TABLE_NAME,null,null,null,null,null,null);/*QUERY RETORNA CURSOR*/
     }
 
-    public Cursor getCategoriaById(String categoriaId) {
+    public Cursor getCategoriaById(String categoriaId) {//retorna un cursor con la categoria segun el id que se ingrese...
         Cursor c = getReadableDatabase().query(
                 CategoriasEntry.TABLE_NAME,
                 null,
@@ -65,14 +70,14 @@ public class CategoriasHelper extends SQLiteOpenHelper {
         return c;
     }
 
-    public int deleteCategoria(String categoriaId) {
+    public int deleteCategoria(String categoriaId) {//borra una clase de la bd segun el id...
         return getWritableDatabase().delete(/*GETWRITABLEDATABASE: ABRE BD PARA LECTURA Y ESCRITURA*/
                 CategoriasEntry.TABLE_NAME,
                 CategoriasEntry.ID + " LIKE ?",/*COMANDO WHERE, SI SE PASA NULL BORRA TODAS LA FILAS*/
                 new String[]{categoriaId});
     }
 
-    public int updateCategoria(Categorias categoria, String categoriaId) {
+    public int updateCategoria(Categorias categoria, String categoriaId) {//actualiza una clase de la base de datos segun el id que se ingrese..
 	/*int update (String table, 
                 ContentValues values, 
                 String whereClause, 

@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Cada vez que se hace click en una fecha del calendario, esta fecha se almacena en las variables selectedYear, selectedMonth, selectedDay
-        CalendarView cv = (CalendarView)findViewById(R.id.calendarView);
+        CalendarView cv = (CalendarView) findViewById(R.id.calendarView);
         cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,int dayOfMonth){
@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         TextView fecha = (TextView) findViewById(R.id.crearNotificacionFecha);
         fecha.append(date);
 
-
-
     }
+    public void
 }

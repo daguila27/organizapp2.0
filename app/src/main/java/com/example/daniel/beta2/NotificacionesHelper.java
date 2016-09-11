@@ -55,10 +55,7 @@ public class NotificacionesHelper extends SQLiteOpenHelper {
 
     public Cursor getAllNotificaciones() {
         return getReadableDatabase()
-                .query(
-                        NotificacionesEntry.TABLE_NAME,
-                        null,
-                        null,null,null,null,null);
+                .query(NotificacionesEntry.TABLE_NAME,null,null,null,null,null,null);
     }
 
     public Cursor getNotificacionById(String notificacionId) {

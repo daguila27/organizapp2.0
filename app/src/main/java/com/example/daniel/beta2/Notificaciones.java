@@ -42,7 +42,7 @@ public class Notificaciones{
 		values.put(NotificacionesEntry.SONIDO, sonido);
 		return values;
 	}
-	public String getId(){return id;}
+	public String getId() { return id; }
 	public String getMensaje(){
 		return mensaje;
 	}
