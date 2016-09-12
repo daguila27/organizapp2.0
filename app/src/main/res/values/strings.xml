@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">Beta2</string>
+    <string name="app_name">Organizapp!</string>
     <string name="title_activity_categorias">Categorias</string>
+    <string name="nombreEventoHint">Nombre de evento</string>
+    <string name="agregarCategoriaBoton">Agregar categoria</string>
+    <string name="agregarEventoText">Agregar evento</string>
+    <string name="atrasBoton">Atras</string>
+    <string name="agregarEventoCalendarioBoton">+</string>
 </resources>

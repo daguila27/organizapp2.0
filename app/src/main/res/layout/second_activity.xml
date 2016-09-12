@@ -9,7 +9,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Atras"
+        android:text="@string/atrasBoton"
         android:id="@+id/botonAtras"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar evento"
+        android:text="@string/agregarEventoText"
         android:id="@+id/botonAgregar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="  "
+        android:text=""
         android:layout_alignParentTop="true"
         android:id="@+id/crearNotificacionFecha"/>
 
@@ -45,7 +45,7 @@
         android:layout_gravity="start"
         android:layout_below="@id/crearNotificacionFecha"
         android:id="@+id/crearNombreEvento"
-        android:hint="Nombre de evento" />
+        android:hint="@string/nombreEventoHint" />
 
 
     <!-- Comentar que es esto -->
@@ -60,15 +60,25 @@
         android:layout_alignParentStart="true"
         android:hint=""/>
 
-
-
     <Spinner
         android:id="@+id/crearSpinner1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
-        android:layout_below="@id/editText"/>
+        android:layout_below="@id/editText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/agregarCategoriaBoton"
+        android:id="@+id/botonCategoria"
+        android:layout_alignBottom="@+id/crearSpinner1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/editText"
+        android:layout_toRightOf="@id/crearSpinner1"
+        android:layout_toEndOf="@id/crearSpinner1"/>
 
 
 </RelativeLayout>

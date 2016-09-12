@@ -13,7 +13,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
+        android:text="@string/agregarEventoCalendarioBoton"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -22,7 +22,7 @@
 
     <CalendarView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:id="@+id/calendarView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -35,6 +35,7 @@
         android:id="@+id/list_categorias"
         android:layout_below="@+id/calendarView"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="53dp" />
+        android:layout_marginTop="53dp"
+        android:layout_above="@+id/button" />
 
 </RelativeLayout>
