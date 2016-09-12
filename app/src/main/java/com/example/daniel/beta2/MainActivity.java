@@ -47,5 +47,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public String[] list_categoria(Cursor categorias){
 
+
     }
 }
