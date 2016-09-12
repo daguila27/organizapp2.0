@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         fecha.append(date);
 
     }
-    public String[] list_database(Cursor database){
+    public CharArrayBuffer[] list_database(Cursor database){
         CharArrayBuffer[] list = new CharArrayBuffer[database.getColumnCount()];
         database.moveToFirst();
         do{
@@ -54,6 +54,6 @@ public class MainActivity extends AppCompatActivity {
             database.copyStringToBuffer(database.getPosition(),buffer);
             list.append(buffer);
         }while(!database.isLast());
-    return buffer;
+    return list;
     }
 }
