@@ -1,5 +1,6 @@
 package com.example.daniel.beta2;
 
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,5 +45,7 @@ public class MainActivity extends AppCompatActivity {
         fecha.append(date);
 
     }
-    public void
+    public String[] list_categoria(Cursor categorias){
+
+    }
 }

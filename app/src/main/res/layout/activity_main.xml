@@ -28,4 +28,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp" />
 
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alingParentBottom="true"
+        android:text="Categorias"
+        android:id="@+id/list_categorias"
+        android:layout_below="@+id/calendarView"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="53dp" />
+
 </RelativeLayout>
