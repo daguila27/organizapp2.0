@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         setCurrentViewById(R.layout.activity_main); //Pone la actividaad principal en pantalla
         setearOnClickCalendario(R.id.calendarView); //Para almacenar la fecha que el usuario seleccione
 
-        listaEventos = new ArrayList<String>();
+        listaEventos = new ArrayList<>();
 
 
         //Harcodeado por el momento
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void crearSecondActivity(){
         Spinner dropdown = (Spinner)findViewById(R.id.crearSpinner1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listaEventos);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, listaEventos);
         dropdown.setAdapter(adapter);
     }
     public void crearActivity(){
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
     public void listaAgregarCategoria(){
 
         lv = (ListView) findViewById(R.id.ListView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.categorias_list_item, listaEventos);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.categorias_list_item, listaEventos);
         lv.setAdapter(adapter);
     }
 
@@ -190,11 +190,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void agregarCategoriaALista(View view){
         EditText mEdit = (EditText) findViewById(R.id.EditTextAgregarCategoria);
-        String paisAAgregar = mEdit.getText().toString();
-        listaEventos.add(paisAAgregar);
+        String categoriaAgregar = mEdit.getText().toString();
+
+        if(categoriaAgregar.equals("")){
+            return;
+        }
+        categoriaAgregar = categoriaAgregar.substring(0,1).toUpperCase() + categoriaAgregar.substring(1).toLowerCase();
+
+        if(listaEventos.contains(categoriaAgregar)){
+            return;
+        }
+        listaEventos.add(categoriaAgregar);
 
         lv = (ListView) findViewById(R.id.ListView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.categorias_list_item, listaEventos);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.categorias_list_item, listaEventos);
         lv.setAdapter(adapter);
     }
 
