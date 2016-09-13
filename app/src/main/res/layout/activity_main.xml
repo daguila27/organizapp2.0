@@ -34,7 +34,7 @@
     <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:text="Categorias"
+        android:text="@string/categorias"
         android:id="@+id/list_categorias"
         android:layout_below="@+id/calendarView"
         android:layout_alignParentLeft="true"

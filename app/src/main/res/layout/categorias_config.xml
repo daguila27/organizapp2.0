@@ -15,14 +15,14 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Introdusca texto"
+            android:hint="@string/ingrese_categoria"
             android:layout_weight="1"
             android:id="@+id/EditTextAgregarCategoria"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Agregar"
+            android:text="@string/botonAgregar"
             android:onClick="agregarCategoriaALista"/>
     </LinearLayout>
 
@@ -37,7 +37,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/ListView"></ListView>
+            android:id="@+id/ListView"/>
 
     </LinearLayout>
 

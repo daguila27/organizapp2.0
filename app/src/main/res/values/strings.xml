@@ -8,4 +8,8 @@
     <string name="agregarEventoCalendarioBoton">+</string>
     <string name="fecha_hora_seleccionada">Fecha/hora seleccionada:</string>
     <string name="descripion_del_evento">Descripion del evento</string>
+    <string name="introdusca_una_categoria">Introdusca una categoria</string>
+    <string name="botonAgregar">Agregar</string>
+    <string name="ingrese_categoria">Ingrese categoria</string>
+    <string name="categorias">Categorias</string>
 </resources>

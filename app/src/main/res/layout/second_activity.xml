@@ -103,6 +103,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:id="@+id/crearDatePicker"></DatePicker>
+        android:id="@+id/crearDatePicker"/>
 
 </RelativeLayout>
