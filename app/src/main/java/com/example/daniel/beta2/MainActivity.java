@@ -2,6 +2,7 @@ package com.example.daniel.beta2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.CharArrayBuffer;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -20,6 +22,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.daniel.beta2.database.CategoriasHelper;
+import com.example.daniel.beta2.database.EventosHelper;
+import com.example.daniel.beta2.database.NotificacionesHelper;
+
+import Categories.CategoriesActivity;
+import com.example.daniel.beta2.R;
 import java.lang.reflect.Array;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -27,13 +35,15 @@ import java.util.List;
 import java.util.Stack;
 import org.w3c.dom.Text;
 
-import static com.example.daniel.beta2.CategoriasTabla.CategoriasEntry;
-import static com.example.daniel.beta2.NotificacionesTabla.NotificacionesEntry;
-import static com.example.daniel.beta2.EventosTabla.EventosEntry;
+import static com.example.daniel.beta2.database.CategoriasTabla.CategoriasEntry;
+import static com.example.daniel.beta2.database.NotificacionesTabla.NotificacionesEntry;
+import static com.example.daniel.beta2.database.EventosTabla.EventosEntry;
 
 
 
 public class MainActivity extends AppCompatActivity {
+
+    Button categorias_config;
 
     private int currentViewId = -1;
     private Stack contentViewsPila;
@@ -90,16 +100,25 @@ public class MainActivity extends AppCompatActivity {
         setearOnClickCalendario(R.id.calendarView); //Para almacenar la fecha que el usuario seleccione
 
         listaEventos = new ArrayList<>();
+        categorias_config = (Button)findViewById(R.id.list_categorias);
 
+        categorias_config.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent categorias = new Intent(MainActivity.this, CategoriesActivity.class);
+                startActivity(categorias);
+            }
+        });
 
         //Harcodeado por el momento
         //Hacer algo para que se lea desde la base de datos
-        listaEventos.add("Certamen");
+       listaEventos.add("Certamen");
         listaEventos.add("Aniversario");
         listaEventos.add("Cumpleaños");
         listaEventos.add("Reunion");
 
     }
+
 
 
     public void atras(){
@@ -180,7 +199,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void poblarListViewCategorias(){
+        //lv = (ListView) findViewById(R.id.categorias_config);
         lv = (ListView) findViewById(R.id.ListView);
+        //lv = (ListView) findViewById(R.id.list_categorias);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.categorias_list_item, listaEventos);
         lv.setAdapter(adapter);
     }
