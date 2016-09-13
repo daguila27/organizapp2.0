@@ -1,14 +1,17 @@
 package com.example.daniel.beta2;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.CharArrayBuffer;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.EditText;
@@ -153,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             crearSecondActivity();
         }
         if(getCurrentViewById() == R.layout.categorias_config){
-            listaAgregarCategoria();
+            crearCategoriasConfigActivity();
         }
     }
 
@@ -176,11 +179,27 @@ public class MainActivity extends AppCompatActivity {
         fecha.append(fechaActual);
     }
 
-    public void listaAgregarCategoria(){
-
+    public void poblarListViewCategorias(){
         lv = (ListView) findViewById(R.id.ListView);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.categorias_list_item, listaEventos);
         lv.setAdapter(adapter);
+    }
+
+    public void crearListenerListView(){
+
+        lv.setLongClickable(true);
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
+                listaEventos.remove(position);
+                poblarListViewCategorias();
+                return true;
+            }
+        });
+    }
+
+    public void crearCategoriasConfigActivity(){
+        poblarListViewCategorias();
+        crearListenerListView();
     }
 
     public void botonAgregarCategoria(View view){
@@ -206,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.categorias_list_item, listaEventos);
         lv.setAdapter(adapter);
     }
+
 
     /*
     public String[][] getcategorias(Cursor categoria , boolean tipe){
