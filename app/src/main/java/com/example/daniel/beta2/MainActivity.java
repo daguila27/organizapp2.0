@@ -1,33 +1,45 @@
 package com.example.daniel.beta2;
 
-        import android.content.Context;
-        import android.database.CharArrayBuffer;
-        import android.database.Cursor;
-        import android.database.sqlite.SQLiteDatabase;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.KeyEvent;
-        import android.view.View;
-        import android.widget.ArrayAdapter;
-        import android.widget.CalendarView;
-        import android.widget.ListView;
-        import android.widget.Spinner;
-        import android.widget.TextView;
+import android.content.Context;
+import android.database.CharArrayBuffer;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 
-        import java.lang.reflect.Array;
-        import java.util.Stack;
-        import org.w3c.dom.Text;
+import java.lang.reflect.Array;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+import org.w3c.dom.Text;
 
-        import static com.example.daniel.beta2.CategoriasTabla.CategoriasEntry;
-        import static com.example.daniel.beta2.NotificacionesTabla.NotificacionesEntry;
-        import static com.example.daniel.beta2.EventosTabla.EventosEntry;
+import static com.example.daniel.beta2.CategoriasTabla.CategoriasEntry;
+import static com.example.daniel.beta2.NotificacionesTabla.NotificacionesEntry;
+import static com.example.daniel.beta2.EventosTabla.EventosEntry;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
     private int currentViewId = -1;
     private Stack contentViewsPila;
     private int selectedYear, selectedMonth, selectedDay;
+
+    private String eventoFecha;
+
+    private List<String> listaEventos;
+    private ListView lv;
 
     private SQLiteDatabase base_categorias;
     private SQLiteDatabase base_notificaciones;
@@ -51,16 +63,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public int popContentView(){
-        Log.d("Pila qla", String.valueOf(contentViewsPila));
         contentViewsPila.pop();
         if(contentViewsPila.empty()){
             return -1;
         }
-        Log.d("Pila qla", String.valueOf(contentViewsPila));
         int anterior = (int) contentViewsPila.pop();
-        Log.d("Pila qla", String.valueOf(contentViewsPila));
         setCurrentViewById(anterior);
-        Log.d("Pila qla", String.valueOf(contentViewsPila));
         return anterior;
     }
 
@@ -68,14 +76,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState); //Por defecto
 
-        categorias.onCreate(base_categorias);//SE INICIAN LAS BASES DE DATOS
-        notificaciones.onCreate(base_notificaciones);
-        eventos.onCreate(base_eventos);
+        //categorias.onCreate(base_categorias);//SE INICIAN LAS BASES DE DATOS
+        //notificaciones.onCreate(base_notificaciones);
+        //eventos.onCreate(base_eventos);
 
         contentViewsPila = new Stack(); //Para saber los contents views que se han ido cambiando
-        crear_categorias_config();
+        //crear_categorias_config();
+
         setCurrentViewById(R.layout.activity_main); //Pone la actividaad principal en pantalla
         setearOnClickCalendario(R.id.calendarView); //Para almacenar la fecha que el usuario seleccione
+
+        listaEventos = new ArrayList<String>();
+
+
+        //Harcodeado por el momento
+        //Hacer algo para que se lea desde la base de datos
+        listaEventos.add("Certamen");
+        listaEventos.add("Aniversario");
+        listaEventos.add("Cumpleaños");
+        listaEventos.add("Reunion");
 
     }
 
@@ -114,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
         cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,int dayOfMonth){
-                Log.d("wea", dayOfMonth+" - "+(month+1)+" - "+ year);
 
                 selectedYear = year;
                 selectedMonth = month + 1; //Por algun motivo los meses empiezan en cero, sumandole 1 se arregla
@@ -127,26 +145,60 @@ public class MainActivity extends AppCompatActivity {
 
     public void crearSecondActivity(){
         Spinner dropdown = (Spinner)findViewById(R.id.crearSpinner1);
-        String[] items = new String[]{"Certamen", "Tarea", "Aniversario", "Cumpleaños"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, listaEventos);
         dropdown.setAdapter(adapter);
     }
     public void crearActivity(){
         if(getCurrentViewById() == R.layout.second_activity){
             crearSecondActivity();
         }
+        if(getCurrentViewById() == R.layout.categorias_config){
+            listaAgregarCategoria();
+        }
     }
 
-
+    //cambia de main_activity a second_activity
     public void cambiar(View view){
         setCurrentViewById(R.layout.second_activity);
 
-        String date = String.valueOf(selectedDay) + "/" + String.valueOf(selectedMonth) + "/" + String.valueOf(selectedYear);
+        TimePicker reloj = (TimePicker) findViewById(R.id.reloj);
+
+        int hora = reloj.getCurrentHour();
+        int minutos = reloj.getCurrentMinute();
+
+        //Fecha para sql
+        eventoFecha = "" + selectedYear + "-" + selectedMonth + "-" + selectedDay + " " + hora + ":" + minutos + ":00";
+
+        //Fecha para usuario
+        String fechaActual =  "" + selectedDay + "/" + selectedMonth + "/" + selectedYear + " " + hora + ":" + minutos;
 
         TextView fecha = (TextView) findViewById(R.id.crearNotificacionFecha);
-        fecha.append(date);
+        fecha.append(fechaActual);
     }
 
+    public void listaAgregarCategoria(){
+
+        lv = (ListView) findViewById(R.id.ListView);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.categorias_list_item, listaEventos);
+        lv.setAdapter(adapter);
+    }
+
+    public void botonAgregarCategoria(View view){
+        setCurrentViewById(R.layout.categorias_config);
+        crearActivity();
+    }
+
+    public void agregarCategoriaALista(View view){
+        EditText mEdit = (EditText) findViewById(R.id.EditTextAgregarCategoria);
+        String paisAAgregar = mEdit.getText().toString();
+        listaEventos.add(paisAAgregar);
+
+        lv = (ListView) findViewById(R.id.ListView);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.categorias_list_item, listaEventos);
+        lv.setAdapter(adapter);
+    }
+
+    /*
     public String[][] getcategorias(Cursor categoria , boolean tipe){
         categoria.moveToFirst();//SE MUEVE EL CURSOR A LA PRIMERA FILA YA QUE ESTE COMIENZA EN LA FILA -1
         String[][] matrix = new String[categoria.getColumnCount()-1][categoria.getCount()];
@@ -169,8 +221,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return matrix;
     }
-
-
+*/
+/*
     public void crear_categorias_config(){
         Cursor pointer = categorias.getAllCategorias();
         String[][] matrix = getcategorias(categorias.getAllCategorias(),false);
@@ -179,4 +231,5 @@ public class MainActivity extends AppCompatActivity {
         ListView lv =(ListView)findViewById(R.id.categorias_config);
         lv.setAdapter(adaptador);
     }
+    */
 }

@@ -6,4 +6,6 @@
     <string name="agregarEventoText">Agregar evento</string>
     <string name="atrasBoton">Atras</string>
     <string name="agregarEventoCalendarioBoton">+</string>
+    <string name="fecha_hora_seleccionada">Fecha/hora seleccionada:</string>
+    <string name="descripion_del_evento">Descripion del evento</string>
 </resources>

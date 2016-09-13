@@ -10,6 +10,7 @@
     tools:context="com.example.daniel.beta2.MainActivity">
 
 
+    <!-- Boton + -->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,14 +21,16 @@
         android:layout_alignParentEnd="true"
         android:onClick="cambiar" />
 
+    <!-- Calendario -->
     <CalendarView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:id="@+id/calendarView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp" />
 
+    <!-- Boton Categorias -->
     <Button
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -37,5 +40,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="53dp"
         android:layout_above="@+id/button" />
+
+
 
 </RelativeLayout>

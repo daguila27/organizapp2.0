@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <!-- Boton atras -->
+    <!--
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -14,7 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="atrasView"/>
+        android:onClick="atrasView"/>-->
 
 
     <!-- Boton para agregar evento -->
@@ -27,23 +28,15 @@
         android:id="@+id/botonAgregar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"/>
 
 
-    <!-- Muestra la fecha seleccionada -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_alignParentTop="true"
-        android:id="@+id/crearNotificacionFecha"/>
 
-    <!-- Nombre de evente -->
+    <!-- Nombre de evento -->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_below="@id/crearNotificacionFecha"
         android:id="@+id/crearNombreEvento"
         android:hint="@string/nombreEventoHint" />
 
@@ -68,6 +61,7 @@
         android:spinnerMode="dropdown"
         android:layout_below="@id/editText" />
 
+    <!-- Boton agregar categoria -->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,7 +72,37 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/editText"
         android:layout_toRightOf="@id/crearSpinner1"
-        android:layout_toEndOf="@id/crearSpinner1"/>
+        android:layout_toEndOf="@id/crearSpinner1"
+        android:onClick="botonAgregarCategoria"/>
 
+    <!-- Muestra la fecha seleccionada -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fecha_hora_seleccionada"
+        android:layout_below="@id/crearSpinner1"
+        android:textSize="20sp"
+        android:id="@+id/crearNotificacionFecha"/>
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@id/crearNotificacionFecha"
+        android:id="@+id/reloj" />
+
+    <!-- Descripcion de evento -->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/crearDescripcionEvento"
+        android:layout_below="@id/crearNotificacionFecha"
+        android:hint="@string/descripion_del_evento" />
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/crearDatePicker"></DatePicker>
 
 </RelativeLayout>
